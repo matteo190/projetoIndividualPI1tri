@@ -1,16 +1,26 @@
+/* configurações que se aplicam ao site todo */
+
 * {
     box-sizing: border-box;
     padding: 0;
     transition: 0.2s;
 }
 
+/* variaveis para facilitar na hora de definir tamanhos de certas sessões do site */
+
 :root {
     --tamanho-header: 80px;
-    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-banner: calc(165vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
     --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
     --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
     --tamanho-footer: 65px;
 }
+
+span {
+font-size: 18px;
+}
+
+/* header */
 
 .header {
     height: var(--tamanho-header);
@@ -35,31 +45,96 @@
     font-size: xx-large;
     font-weight: bold;
 }
+
+/* tudo relacionado aos banners */
+
 .titulo {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: xx-large;
     font-weight: bold;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 .banner {
 height: var(--tamanho-banner);
 display: flex;
 flex-direction: column;
 justify-content: space-around;
+border-bottom: 2px solid black;
 padding-left: 50px;
 padding-right: 50px;
+padding-bottom: 60px;
 }
+.bannerSemImg {
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-bottom: 2px solid black;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    }
+.bannerFontes {
+    height: 490px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid black;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.bannerFontes a {
+    padding-bottom: 10px;
+}
+
 .conteudo {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+.imagemH img {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 500px;
+    border: 1px solid black;
+}
+.imagemV img {
+    display: flex;
+    flex-direction: column;
+    height: 570px;
+    width: 420px;
+    border: 1px solid black;
+}
+.imagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.descrição {
+    display: flex;
+    color: gray;
+    padding-bottom: 10px;
+    font-size: 14px;
 }
 .texto {
-    padding-right: 50px;
+    padding-right: 100px;
+    font-size: 18px;
+    width: 50%;
+    height: 590px;
 }
-img {
-    height: 330px;
-    width: 700px;
-    border: 1px solid black;
+
+/* footer */
+
+.footer{
+    height: var(--tamanho-header);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
