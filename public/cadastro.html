@@ -6,37 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>EnergiaNuclear | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="./assets/icon/iconeSite.png" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body onload="listar()">
   <!--header inicio-->
   <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
+    <div class="headerEsq">
+      <img src="./assets/icon/iconeSite.png">
+      <div class="nomeDoSite">
+        <span class="nome">EnergiaNuclear.com</span>
+        <span class="subnome">chegando no nucleo da questão</span> 
+      </div>
+    </div>
+    <ul class="navbar">
         <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
+          <a href="index.html">historia</a>
         </li>
         <li>|</li>
+        <li class="atual">
+          <a href="#">cadastro</a>
+        </li>
         <li>
-          <a href="login.html">Login</a>
+            <a href="login.html">login</a>
         </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+    </ul>
+</div>
   <!--header fim-->
 
   <div class="login">
@@ -54,20 +55,12 @@
                          Assim que inserir vá para o script abaixo.
                      -->
           <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
+            <span>Nome de usuario:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome de usuario" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
             <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="text" placeholder="seu CPF" />
           </div>
           <div class="campo">
             <span>Senha:</span>
@@ -90,21 +83,14 @@
 
   <!--footer inicio-->
   <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div>
+    <span>feito por Matteo Garcia Rizzo | RA:04242017 | EnergiaNuclear.com &copy; 2024</span>
+</div>
   <!--footer fim-->
 </body>
 
 </html>
 
 <script>
-
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
   function cadastrar() {
     // aguardar();
 
@@ -113,19 +99,14 @@
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
-    var cpfVar = cpf_input.value
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == "" ||
-      cpfVar == ""
+      confirmacaoSenhaVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -135,30 +116,6 @@
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
-    }
-
-    if (nomeVar.length > 1) {
-      div_erros_login.innerHTML += `o nome deve ser maior do que 1 caracter`
-    }
-    if (emailVar.includes("@")) {
-    } else {
-      div_erros_login.innerHTML += `<br> o e-mail deve incluir @`
-    }
-    if (senhaVar <= 6){
-      div_erros_login.innerHTML += `<br> a senha deve ter mais que 6 caracteres`
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
     }
 
     // Enviando o valor da nova input
@@ -173,8 +130,6 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        cpfServer: cpfVar,
-        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -204,27 +159,19 @@
     return false;
   }
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
 </script>
+
+<!-- if (nomeVar.length > 1) {
+  div_erros_login.innerHTML += `o nome deve ser maior do que 1 caracter`
+}
+if (emailVar.includes("@")) {
+} else {
+  div_erros_login.innerHTML += `<br> o e-mail deve incluir @`
+}
+if (senhaVar <= 6){
+  div_erros_login.innerHTML += `<br> a senha deve ter mais que 6 caracteres`
+}
+-->
