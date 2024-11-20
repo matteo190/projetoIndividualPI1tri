@@ -9,6 +9,53 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
+    <div class="graficos">
+        <h3>contribuição da energia nuclear na matriz energetica mundial</h3>
+        <select id="slt_ano" onchange="alterarGraficos()">
+            <option value="1998">1998</option>
+            <option value="2014">2014</option>
+        </select>
+        <canvas id="pizza"></canvas>
+        <canvas id="pizza2"></canvas>
+    </div>
 </body>
 </html>
+
+<script>
+    var ano = slt_ano.value
+  const ctx = document.getElementById('pizza');
+  if (ano == "1998") {
+    if (criacaoGrafico) {
+            criacaoGrafico.destroy()
+        }
+      var criacaoGrafico = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: ['carvão', 'nuclear', 'hidroeletrica', 'petróleo', 'gâs'],
+              datasets: [{
+                  label: '% de uso',
+                  data: [40, 17, 18, 11, 14],
+                  backgroundColor: [
+                      'rgb(0,0,0)',
+                      'rgb(255,255,0)',
+                      'rgb(0,238,255)',
+                      'rgb(92,1,92)',
+                      'rgb(255,0,0)'
+              ],
+              borderWidth: 1
+            }]
+        },
+    });
+}
+    function alterarGraficos(){
+        var ano = slt_ano.value
+        console.log(criacaoGrafico.data.datasets[0].data)
+        if (ano == "1998") {
+            criacaoGrafico.data.datasets[0].data = [40, 17, 18, 11, 14];
+            criacaoGrafico.update()
+        } else {
+            criacaoGrafico.data.datasets[0].data = [28, 4, 16, 31, 21];
+            criacaoGrafico.update()
+        }
+    }
+</script>
