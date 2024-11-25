@@ -6,18 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnergiaNuclear | curiosidades</title>
     <link rel="icon" href="../assets/icon/iconeSite.png">
+    <link rel="stylesheet" href="../css/dasboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="graficos">
+    <div class="container">
+
+        <div class="header-left dash-header">
+            
+            <h1>EnergiaNuclear.com</h1>
+            
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+            
+            <div class="btn-nav">
+                <h3>curiosidades</h3>
+            </div>
+            
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>simulador</h3>
+                </a>
+        </div>
+
+        <div class="btn-logout" onclick="limparSessao()">
+            <h3>Sair</h3>
+        </div>
+        
+    </div>
+    
+    
+    <div class="grafico">
         <h3>contribuição da energia nuclear na matriz energetica mundial</h3>
         <select id="slt_ano" onchange="alterarGraficos()">
             <option value="1998">1998</option>
             <option value="2014">2014</option>
         </select>
         <canvas id="pizza"></canvas>
-        <canvas id="pizza2"></canvas>
     </div>
+    <div class="grafico2">
+        <h3>países com a maior porcentagem de energia produzida por reatores nucleares</h3>
+        <canvas id="barra" height="450"></canvas>
+    </div>
+
+</div>
 </body>
 </html>
 
@@ -25,15 +58,12 @@
     var ano = slt_ano.value
   const ctx = document.getElementById('pizza');
   if (ano == "1998") {
-    if (criacaoGrafico) {
-            criacaoGrafico.destroy()
-        }
       var criacaoGrafico = new Chart(ctx, {
           type: 'pie',
           data: {
               labels: ['carvão', 'nuclear', 'hidroeletrica', 'petróleo', 'gâs'],
               datasets: [{
-                  label: '% de uso',
+                  label: '% da matriz energetica mundial',
                   data: [40, 17, 18, 11, 14],
                   backgroundColor: [
                       'rgb(0,0,0)',
@@ -58,4 +88,36 @@
             criacaoGrafico.update()
         }
     }
+    const cttx = document.getElementById('barra');
+    var criacaoGrafico2 = new Chart(cttx, {
+          type: 'bar',
+          data: {
+              labels: ['frança','lituânia','bélgica','ucrânia','suecia','eslovenia','suíça','hungria','finlandia','japão'],
+              datasets: [{
+                  indexAxis : 'y',
+                  data: [76.8,64.4,54,48.1,46.1,41.6,40,36.8,28.9,27.5],
+                  backgroundColor: [
+                      'blue',
+                      'green',
+                      'yellow',
+                      'rgb(0,255,221)',
+                      'rgb(0,0,161)',
+                      'yellowgreen',
+                      'red',
+                      'rgb(89,124,18)',
+                      'rgb(0,0,100)',
+                      'rgb(187,0,0)'
+
+              ],
+              borderWidth: 1
+            }],  
+        },
+        options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+              }
+    });
 </script>
