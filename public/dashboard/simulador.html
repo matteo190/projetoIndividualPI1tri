@@ -118,10 +118,12 @@ function buscarEnergia(idusuario){
                 if (criacaoGrafico) {
                 criacaoGrafico.data.datasets[0].data = []
                 criacaoGrafico.data.datasets[0].data.push(dados[0].energia)
-                criacaoGrafico.data.datasets[0].data.push(1110000)
+                criacaoGrafico.data.datasets[0].data.push(11100)
                 criacaoGrafico.data.labels = ['consumo medio de energia','produção de um reator nuclear']
                 criacaoGrafico.update()
-                armazenar(energia)
+                if (energia != 0){
+                    armazenar(energia)
+                }
             }
             })
             .catch((erro) => {

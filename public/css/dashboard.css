@@ -38,6 +38,9 @@
   .grafico2 h3 {
     padding-left: 10px;
   }
+  .grafico2 .titulo {
+    padding-left: 50px;
+  }
   .graficos select {
     align-items: center;
     justify-content: center;
