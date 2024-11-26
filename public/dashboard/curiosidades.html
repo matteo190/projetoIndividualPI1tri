@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnergiaNuclear | curiosidades</title>
     <link rel="icon" href="../assets/icon/iconeSite.png">
-    <link rel="stylesheet" href="../css/dasboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/sessao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -25,35 +26,31 @@
             </div>
             
             <div class="btn-nav-white">
-                <a href="./dashboard.html">
+                <a href="./simulador.html">
                     <h3>simulador</h3>
                 </a>
-        </div>
-
-        <div class="btn-logout" onclick="limparSessao()">
+         </div>
+         <div class="btn-logout" onclick="limparSessao()">
             <h3>Sair</h3>
-        </div>
-        
-    </div>
+         </div>
+       </div>
     
     
-    <div class="grafico">
+     <div class="grafico">
         <h3>contribuição da energia nuclear na matriz energetica mundial</h3>
         <select id="slt_ano" onchange="alterarGraficos()">
             <option value="1998">1998</option>
             <option value="2014">2014</option>
         </select>
         <canvas id="pizza"></canvas>
-    </div>
-    <div class="grafico2">
+     </div>
+     <div class="grafico2">
         <h3>países com a maior porcentagem de energia produzida por reatores nucleares</h3>
         <canvas id="barra" height="450"></canvas>
-    </div>
-
+     </div>
 </div>
 </body>
 </html>
-
 <script>
     var ano = slt_ano.value
   const ctx = document.getElementById('pizza');

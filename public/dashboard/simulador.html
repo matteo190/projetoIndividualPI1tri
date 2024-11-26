@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/icon/iconeSite.png">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
+    <title>EnergiaNuclear | simulador</title>
+</head>
+<body onload="buscarEnergia(recuperar())">
+    <div class="container">
+
+        <div class="header-left dash-header">
+            
+            <h1>EnergiaNuclear.com</h1>
+            
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+            
+            <div class="btn-nav-white">
+                <a href="./curiosidades.html">
+                    <h3>curiosidades</h3>
+                </a>
+            </div>
+            
+            <div class="btn-nav"> 
+                <h3>simulador</h3>
+        </div>
+
+        <div class="btn-logout" onclick="limparSessao()">
+            <h3>Sair</h3>
+        </div>
+        
+    </div>
+        <div class="graficoDinamico">
+            <h6>qual é o custo de sua conta de luz ?</h6>
+            <input type="number" id="ipt_preço">
+            <button onclick="calcular()">calcular</button>
+            <canvas id="pizza"></canvas>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var preço = 0
+    var energia = 0
+    var graficopizza = document.getElementById('pizza')
+    var criacaoGrafico = new Chart(graficopizza, {
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'kwh/mês de energia',
+                data: [],
+                backgroundColor: [
+                    'red',
+                    'black'
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+    function calcular(){
+        preço = Number(ipt_preço.value)
+        energia = (preço / 0.80)
+        if (preço < 0) {
+            alert("insira um número maior que 0")
+        } else {
+            if (criacaoGrafico) {
+                criacaoGrafico.data.datasets[0].data = []
+                criacaoGrafico.data.datasets[0].data.push(energia)
+                criacaoGrafico.data.datasets[0].data.push(1110000)
+                criacaoGrafico.data.labels = ['consumo medio de energia','produção de um reator nuclear']
+                criacaoGrafico.update()
+                armazenar(energia)
+            }
+    }
+}
+function armazenar(energia){
+    fetch(`/energia/energia/${recuperar()}`,{
+        method:"post",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            energia: energia
+        })
+    })
+    .then(function (resposta){
+        if (resposta.status == 200){
+            // alert
+        } else {
+            console.log(resposta)
+        }
+    })
+    .catch((erro) => {
+        console.log(erro)
+    })
+}
+function recuperar(){
+   return sessionStorage.ID_USUARIO
+}
+function buscarEnergia(idusuario){
+    fetch(`/energia/energiatotal/${recuperar()}`,{
+        method: "get"
+    })
+    .then((resposta) => {
+        if (resposta.ok){
+            resposta.json()
+            .then((dados) => {
+                console.log(dados)
+                if (criacaoGrafico) {
+                criacaoGrafico.data.datasets[0].data = []
+                criacaoGrafico.data.datasets[0].data.push(dados[0].energia)
+                criacaoGrafico.data.datasets[0].data.push(1110000)
+                criacaoGrafico.data.labels = ['consumo medio de energia','produção de um reator nuclear']
+                criacaoGrafico.update()
+                armazenar(energia)
+            }
+            })
+            .catch((erro) => {
+                console.log(erro)
+            })
+        }
+    })
+    .catch((erro) => {
+        console.log(erro)
+    })
+}
+</script>
