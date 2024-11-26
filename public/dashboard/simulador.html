@@ -37,10 +37,11 @@
         
     </div>
         <div class="graficoDinamico">
-            <h6>qual é o custo de sua conta de luz ?</h6>
+            <h4>qual é o custo de sua conta de luz ?</h4>
             <input type="number" id="ipt_preço">
             <button onclick="calcular()">calcular</button>
             <canvas id="pizza"></canvas>
+            <div id="div_mensagem"></div>
         </div>
     </div>
 </body>
@@ -73,11 +74,12 @@
             if (criacaoGrafico) {
                 criacaoGrafico.data.datasets[0].data = []
                 criacaoGrafico.data.datasets[0].data.push(energia)
-                criacaoGrafico.data.datasets[0].data.push(1110000)
+                criacaoGrafico.data.datasets[0].data.push(11100)
                 criacaoGrafico.data.labels = ['consumo medio de energia','produção de um reator nuclear']
                 criacaoGrafico.update()
                 armazenar(energia)
             }
+            div_mensagem.innerHTML = ``
     }
 }
 function armazenar(energia){

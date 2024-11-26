@@ -27,13 +27,13 @@
     padding-left: 10px;
   }
   .graficoDinamico {
-    width: 70%;
+    width: 45%;
     display: flex;
     flex-direction: column;
     justify-content: baseline;
     align-items: center;
-    padding-left: 10px;
-    padding-top: 100px;
+    padding-left: 270px;
+    padding-top: 50px;
   }
   .grafico2 h3 {
     padding-left: 10px;
